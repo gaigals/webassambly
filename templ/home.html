@@ -1,0 +1,45 @@
+{{ define "layout" }}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <script src="/static/wasm_exec.js"></script>
+    </head>
+    <body>
+        <h1>WASM Experiments</h1>
+        <script>
+            // This is a polyfill for FireFox and Safari
+            if (!WebAssembly.instantiateStreaming) {
+                WebAssembly.instantiateStreaming = async (resp, importObject) => {
+                    const source = await (await resp).arrayBuffer()
+                    return await WebAssembly.instantiate(source, importObject)
+                }
+            }
+
+            // Promise to load the wasm file
+            function loadWasm(path) {
+                const go = new Go()
+
+                return new Promise((resolve, reject) => {
+                    WebAssembly.instantiateStreaming(fetch(path), go.importObject)
+                        .then(result => {
+                            go.run(result.instance)
+                            resolve(result.instance)
+                        })
+                        .catch(error => {
+                            reject(error)
+                        })
+                })
+            }
+
+            // Load the wasm file
+            loadWasm("/static/main.wasm").then(wasm => {}).catch(error => {
+                console.log("web-assambly loading error: ", error)
+            })
+
+        </script>
+    </body>
+</html>
+
+{{ end }}
