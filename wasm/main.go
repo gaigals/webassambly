@@ -1,5 +1,4 @@
 //go:build js && wasm
-// +build js,wasm
 
 package main
 
@@ -9,7 +8,7 @@ import (
 )
 
 func main() {
-	message := "👋 Hello, World! 🌍"
+	message := "Hello, World!"
 	fmt.Println(message)
 
 	document := js.Global().Get("document")
