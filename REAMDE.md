@@ -1,6 +1,6 @@
 # WEBASSAMBY
 
-Webassambly tempalte project
+WebAssembly template project
 
 Run project with:
 ```
