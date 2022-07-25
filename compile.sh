@@ -9,7 +9,6 @@ cd $WASM_DIR
 if [ "$TINYGO" == "FALSE" ]; then
   GOOS=js GOARCH=wasm go build -o $STATIC_DIR/main.wasm
 else
-  pwd
   tinygo build -o $STATIC_DIR/main.wasm -target wasm ./main.go
 fi
 
