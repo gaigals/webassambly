@@ -3,7 +3,7 @@
 Webassambly tempalte project
 
 Run project with:
-```go
+```
 ./compile.sh && sudo go run ./
 ```
 
